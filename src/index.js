@@ -1,17 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import App from './App';
+import DashboardPage from './pages/DashboardPage';
+import LoginPage from './pages/LoginPage';
 import reportWebVitals from './reportWebVitals';
+import MachineConfigPage from './pages/MachineConfigPage';
+import InjectTailwind from './InjectTailwind'
+import "./index.css"
+import AdminConsolePage from './pages/AdminConsolePage';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+     <InjectTailwind>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/machines" element={<MachineConfigPage/>}/>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/console" element={<AdminConsolePage />} />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Routes>
+      </InjectTailwind>
+    </Router>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
