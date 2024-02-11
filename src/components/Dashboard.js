@@ -79,13 +79,14 @@ const Dashboard = () => {
   // Columns for Data Table
   const columns = [
     { field: 'id', headerName: 'ID', width: 150 },
-    { field: 'name', headerName: 'Name', width: 328 },
+    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'stock', headerName: 'Stock', width: 150 },
     { field: 'uptime', headerName: 'Uptime', width: 328 },
     { field: 'currentSales', headerName: 'Current Sales', width: 328 },
     {
       field: 'alerts',
       headerName: 'Alerts',
-      width: 150,
+      width: 168,
       renderCell: (params) => (
         <AlertCell value={params.value} />
       ),
@@ -96,6 +97,7 @@ const Dashboard = () => {
   const rows = mockMachineData.map((machine) => ({
     id: machine.id,
     name: machine.name,
+    stock : machine.stock,
     uptime: machine.uptime,
     currentSales: machine.currentSales,
     alerts: machine.alerts,
@@ -107,14 +109,17 @@ const Dashboard = () => {
     let textColor = '';
 
     if (value === 'Low stock') {
-      chipColor = 'red';
+      chipColor = '#E30E0E';
       textColor = 'white';
     } else if (value === 'None') {
-      chipColor = 'green';
+      chipColor = '';
       textColor = 'white';
-    } else if (value === 'Need fix') {
-      chipColor = 'yellow';
-      textColor = 'black';
+    } else if (value === 'Under maintenance') {
+      chipColor = '#FFC330';
+      textColor = 'white';
+    } else if (value === 'Active') {
+      chipColor = '#4EB800';
+      textColor = 'white';
     }
     return (
       <Chip
@@ -132,7 +137,7 @@ const Dashboard = () => {
     <div>
       <Container className="flex col-span-2 gap-8 justify-center pb-8">
       <Grid item xs={12} md={6}>
-        <Paper className="justify-center m-8">
+        <Paper className="justify-center m-8 shadow-none">
           <Typography variant="h6" style={{paddingTop:'24px', textAlign: 'center' ,}} gutterBottom>
             Pie Chart (Current Sales)
           </Typography>
@@ -140,7 +145,7 @@ const Dashboard = () => {
         </Paper>
       </Grid>
       <Grid item xs={12}>
-      <Paper className="justify-center m-8">
+      <Paper className="justify-center m-8 shadow-none">
           <Typography variant="h6" style={{paddingTop:'24px', textAlign: 'center'}} gutterBottom>
             Bar Chart (Uptime)
           </Typography>
